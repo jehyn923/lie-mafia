@@ -9,12 +9,14 @@ import { WebRtcPeer } from "kurento-utils";
 import styled from "styled-components";
 import Home from "../components/Home/home";
 import GameResult from "../pages/GameResult";
+import { useHistory } from "react-router-dom";
 
 const StyledContainer = styled.div`
   height: 100vh;
 `;
 
 function Game() {
+  let history = useHistory();
   const [socketConnect, setSocketConnect] = useState(false);
   const webSocketUrl = "ws://i6c209.p.ssafy.io:8001/ws";
   let ws = useRef(null);
@@ -161,8 +163,6 @@ function Game() {
   const [gameResult, setGameResult] = useState('CIVILIAN');
 
   const messageRef = useRef("Game Start!");
-
-  const [gameResult, setGameResult] = useState("CIVILIAN");
 
   const clickClose = () => {
     ws.current.close();
@@ -790,6 +790,10 @@ function Game() {
     );
   };
 
+  const onGameEnd = () => {
+    history.push("/gameresult")
+  }
+
   // tempParticipant와 participant 동기화
   const updateParticipants = () => {
     setParticipantsName([]);
@@ -1175,7 +1179,12 @@ function Game() {
 
             // 게임 종료
             case "end":
-              setGameResult(parsedMessage.result.winner.job);
+              // console.log(parsedMessage.data.result.winner.job);
+              // setIsGameEnd(true);
+              // setIsGameStart(false);
+              // setGameResult(parsedMessage.data.result.winner.job);
+              // console.log(isGameEnd);
+              onGameEnd();
               break;
 
             default:
@@ -1259,8 +1268,6 @@ function Game() {
           )}
           {isGameEnd && (
             <GameResult
-              participantsVideo={participantsVideo}
-              participantsName={participantsName}
               gameResult={gameResult}
             />
           )}

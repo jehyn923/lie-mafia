@@ -22,8 +22,6 @@ const StyledBtn = styled.div`
 `;
 
 function GameResult({
-  participantsVideo,
-  participantsName,
   GameResult
   }) {
   let history = useHistory();
@@ -39,11 +37,11 @@ function GameResult({
           다시하기
         </Button>
       </StyledBtn>
-      <StyledMsg>{GameResult} 승리!</StyledMsg>
-      <VideoRoom             
+      <StyledMsg>CITIZEN 승리!</StyledMsg>
+      {/* <VideoRoom             
         participantsVideo={participantsVideo}
         participantsName={participantsName}
-       />
+       /> */}
     </div>
   );
 }
